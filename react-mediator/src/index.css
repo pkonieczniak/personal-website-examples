@@ -1,0 +1,8 @@
+img {
+  height: 200px !important;
+  padding: 0 2rem;
+}
+
+img:first-of-type {
+  padding-left: 0;
+}
