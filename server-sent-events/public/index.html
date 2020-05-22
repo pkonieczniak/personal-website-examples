@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Sent Events - Example</title>
+</head>
+<body>
+  <div style="max-width: 500px; margin: auto;">
+    <h1>Chat - Server Sent Events</h1>
+    <h2>Messages: </h2>
+    <ul id="messages"></ul>
+    <textarea id="textarea" placeholder="Write a message" rows="1" cols="50" style="resize: none;"></textarea>
+    <button id="submit" type="submit" style="display: block;">Send</button>
+  </div>
+</form>
+<script>
+  const eventSource = new EventSource('http://localhost:3000/sse')
+  eventSource.onopen = () => { console.log('Established the connection wit server.') }
+  eventSource.onmessage = ({ data }) => showMessage(data)
+  
+  document.getElementById('submit').addEventListener('click', sendMessage)
+
+  function showMessage (message) {
+    const messagesList$ = document.getElementById('messages')
+    listItem$ = document.createElement('li')
+    listItem$.innerText =  message
+    messagesList$.appendChild(listItem$)
+  }
+
+  async function sendMessage () {
+    const textarea$ = document.getElementById('textarea')
+
+    try {
+      await fetch(`http://localhost:3000/api/message`, { 
+        body: JSON.stringify({ message: textarea$.value }),
+        method: 'POST'
+      })
+    } catch (err) { console.log(err) }
+
+    textarea$.value = ''
+  }
+</script>
+</body>
+</html>
