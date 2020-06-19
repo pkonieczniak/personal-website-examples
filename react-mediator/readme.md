@@ -2,4 +2,4 @@ This example presents the Mediator pattern, very common in the present applicati
 
 Built with React and hooks.
 
-[Read the article](https://pkonieczniak-blog.com/blog/mediator-pattern)
+[Read the article](https://pkonieczniak-blog.com/notes/mediator-pattern)
